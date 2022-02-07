@@ -16,14 +16,9 @@ const style = {
     p: 4
 };
 
-export const BasicModal = () => {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
+export const DeleteModal = ({ open, handleClose, handleDeleteUser, userId }) => {
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -31,12 +26,17 @@ export const BasicModal = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <h1>Delete</h1>
+                    <p>Are you sure you want to delete this user? Action cannot be undone</p>
+
+                    <div>
+                        <Button variant="contained" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="contained" onClick={() => handleDeleteUser(userId)}>
+                            Delete
+                        </Button>
+                    </div>
                 </Box>
             </Modal>
         </div>

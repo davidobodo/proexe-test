@@ -11,7 +11,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { TableHeader } from "./TableHeader";
 import { getComparator } from "./utils";
-export const CustomTable = ({ data }) => {
+export const CustomTable = ({ data, onDeleteUser }) => {
     //---------------------------------------------------
     //Sorting Logic
     //---------------------------------------------------
@@ -64,7 +64,9 @@ export const CustomTable = ({ data }) => {
                                                 <Button variant="contained">Edit</Button>
                                             </TableCell>
                                             <TableCell>
-                                                <Button variant="contained">Delete</Button>
+                                                <Button variant="contained" onClick={() => onDeleteUser(id)}>
+                                                    Delete
+                                                </Button>
                                             </TableCell>
                                         </TableRow>
                                     );
@@ -87,5 +89,6 @@ export const CustomTable = ({ data }) => {
 };
 
 CustomTable.propTypes = {
-    users: PropTypes.array
+    users: PropTypes.array,
+    onDeleteUser: PropTypes.func.isRequired
 };

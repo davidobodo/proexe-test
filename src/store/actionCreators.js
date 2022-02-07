@@ -5,7 +5,10 @@ import {
     populateUsersListErrored,
     createUserFail,
     createUserStart,
-    createUserSuccess
+    createUserSuccess,
+    deleteUserStart,
+    deleteUserSuccess,
+    deleteUserFail
 } from "./usersSlice";
 
 const USERS_LIST_API = "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data";
@@ -42,6 +45,24 @@ export const createNewUser = (values) => async (dispatch) => {
 
         dispatch(createUserSuccess(_data));
     } catch (err) {
-        dispatch(createUserFail());
+        dispatch(createUserFail(err));
+    }
+};
+
+export const deleteOneUser = (id) => async (dispatch) => {
+    dispatch(deleteUserStart());
+
+    try {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        await res.json();
+
+        dispatch(deleteUserSuccess(id));
+    } catch (err) {
+        dispatch(deleteUserFail());
     }
 };

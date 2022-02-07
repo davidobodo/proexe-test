@@ -4,13 +4,17 @@ const initialState = {
     users: [],
     isLoadingUsers: false,
     loadingUsersError: null,
-    isCreatingUser: false
+    isCreatingUser: false,
+    isDeletingUser: false
 };
 
 export const usersSlice = createSlice({
     name: "usersVault",
     initialState,
     reducers: {
+        //---------------------------------------
+        //LOAD USERS
+        //---------------------------------------
         loadAllUsers: (state) => {
             state = {
                 ...state,
@@ -34,11 +38,13 @@ export const usersSlice = createSlice({
             };
             return state;
         },
-
+        //---------------------------------------
+        //CREATE USER
+        //---------------------------------------
         createUserStart: (state) => {
             state = {
                 ...state,
-                isCreatingUser: false
+                isCreatingUser: true
             };
 
             return state;
@@ -46,7 +52,7 @@ export const usersSlice = createSlice({
         createUserSuccess: (state, action) => {
             state = {
                 ...state,
-                isCreatingUser: true,
+                isCreatingUser: false,
                 users: [...state.users, action.payload]
             };
 
@@ -56,6 +62,38 @@ export const usersSlice = createSlice({
             state = {
                 ...state,
                 isCreatingUser: false
+            };
+
+            return state;
+        },
+        //---------------------------------------
+        //DELETE USER
+        //---------------------------------------
+        deleteUserStart: (state) => {
+            state = {
+                ...state,
+                isDeletingUser: true
+            };
+
+            return state;
+        },
+        deleteUserSuccess: (state, action) => {
+            const userIdToRemove = action.payload;
+            const clonedState = JSON.parse(JSON.stringify(state.users));
+            const updatedUsers = clonedState.filter((item) => item.id !== userIdToRemove);
+
+            state = {
+                ...state,
+                isDeletingUser: false,
+                users: updatedUsers
+            };
+
+            return state;
+        },
+        deleteUserFail: (state, action) => {
+            state = {
+                ...state,
+                isDeletingUser: false
             };
 
             return state;
@@ -73,7 +111,10 @@ export const {
     populateUsersListErrored,
     createUserFail,
     createUserStart,
-    createUserSuccess
+    createUserSuccess,
+    deleteUserStart,
+    deleteUserSuccess,
+    deleteUserFail
 } = usersSlice.actions;
 
 export default usersSlice.reducer;
