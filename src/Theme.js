@@ -45,6 +45,13 @@ export const theme = createTheme({
                     padding: "0px 1.2rem"
                 }
             }
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    fontSize: "1.4rem"
+                }
+            }
         }
     }
 });

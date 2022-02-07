@@ -24,7 +24,51 @@ export const UserForm = () => {
         name: "Name is Required",
         email: "Email is Required"
     });
-
+    const { name, email, username, street, suite, city, zipcode } = inputFields;
+    const FORM_FIELDS = [
+        {
+            id: "name",
+            label: "Name",
+            required: true,
+            value: name
+        },
+        {
+            id: "email",
+            label: "Email",
+            required: true,
+            value: email
+        },
+        {
+            id: "username",
+            label: "Username",
+            required: false,
+            value: username
+        },
+        {
+            id: "street",
+            label: "Street",
+            required: false,
+            value: street
+        },
+        {
+            id: "suite",
+            label: "Suite",
+            required: false,
+            value: suite
+        },
+        {
+            id: "city",
+            label: "City",
+            required: false,
+            value: city
+        },
+        {
+            id: "zipcode",
+            label: "Zipcode",
+            required: false,
+            value: zipcode
+        }
+    ];
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputFields((prevState) => {
@@ -50,6 +94,9 @@ export const UserForm = () => {
         }
     };
 
+    //---------------------------------------------------
+    //Validations
+    //---------------------------------------------------
     const validateName = (value) => {
         if (value.trim().length === 0) {
             setInputFieldsErrorMessage((prevState) => {
@@ -107,56 +154,13 @@ export const UserForm = () => {
         }
     };
 
+    //---------------------------------------------------
+    //Form Submission
+    //---------------------------------------------------
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(inputFields, "the submitted fields");
     };
-
-    const { name, email, username, street, suite, city, zipcode } = inputFields;
-    const FORM_FIELDS = [
-        {
-            id: "name",
-            label: "Name",
-            required: true,
-            value: name
-        },
-        {
-            id: "email",
-            label: "Email",
-            required: true,
-            value: email
-        },
-        {
-            id: "username",
-            label: "Username",
-            required: false,
-            value: username
-        },
-        {
-            id: "street",
-            label: "Street",
-            required: false,
-            value: street
-        },
-        {
-            id: "suite",
-            label: "Suite",
-            required: false,
-            value: suite
-        },
-        {
-            id: "city",
-            label: "City",
-            required: false,
-            value: city
-        },
-        {
-            id: "zipcode",
-            label: "Zipcode",
-            required: false,
-            value: zipcode
-        }
-    ];
 
     const [isDisabled, setIsDisabled] = useState(true);
     useEffect(() => {

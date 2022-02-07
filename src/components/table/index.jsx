@@ -8,10 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import { TableHeader } from "./TableHeader";
-import { rows, getComparator } from "./utils";
-import { USERS_LIST } from "../../data";
-export const CustomTable = () => {
+import { getComparator } from "./utils";
+export const CustomTable = ({ data }) => {
     //---------------------------------------------------
     //Sorting Logic
     //---------------------------------------------------
@@ -43,7 +43,8 @@ export const CustomTable = () => {
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
                         <TableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
                         <TableBody>
-                            {USERS_LIST.slice()
+                            {data
+                                .slice()
                                 .sort(getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
@@ -59,8 +60,12 @@ export const CustomTable = () => {
                                             <TableCell>{username}</TableCell>
                                             <TableCell>{email}</TableCell>
                                             <TableCell>{address.city}</TableCell>
-                                            <TableCell>Edit</TableCell>
-                                            <TableCell>Delete</TableCell>
+                                            <TableCell>
+                                                <Button variant="contained">Edit</Button>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button variant="contained">Delete</Button>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -70,7 +75,7 @@ export const CustomTable = () => {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
@@ -79,4 +84,8 @@ export const CustomTable = () => {
             </Paper>
         </Box>
     );
+};
+
+CustomTable.propTypes = {
+    users: PropTypes.array
 };
