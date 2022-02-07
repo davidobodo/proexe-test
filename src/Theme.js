@@ -1,9 +1,9 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material/styles";
 
-export const theme = createMuiTheme({
-    overrides: {
+export const theme = createTheme({
+    components: {
         MuiCssBaseline: {
-            "@global": {
+            styleOverrides: {
                 html: {
                     WebkitFontSmoothing: "auto",
                     margin: "0",

@@ -1,6 +1,6 @@
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./Theme";
+import CssBaseline from "@mui/material/CssBaseline";
 import HomePage from "./pages/home";
 function App() {
     return (
