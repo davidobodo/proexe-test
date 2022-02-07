@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     users: [],
     isLoadingUsers: false,
-    loadingUsersError: null
+    loadingUsersError: null,
+    isCreatingUser: false
 };
 
 export const usersSlice = createSlice({
@@ -33,12 +34,46 @@ export const usersSlice = createSlice({
             };
             return state;
         },
+
+        createUserStart: (state) => {
+            state = {
+                ...state,
+                isCreatingUser: false
+            };
+
+            return state;
+        },
+        createUserSuccess: (state, action) => {
+            state = {
+                ...state,
+                isCreatingUser: true,
+                users: [...state.users, action.payload]
+            };
+
+            return state;
+        },
+        createUserFail: (state, action) => {
+            state = {
+                ...state,
+                isCreatingUser: false
+            };
+
+            return state;
+        },
         resetUsersVault: () => {
             return initialState;
         }
     }
 });
 
-export const { loadAllUsers, populateUsersList, resetUsersVault, populateUsersListErrored } = usersSlice.actions;
+export const {
+    loadAllUsers,
+    populateUsersList,
+    resetUsersVault,
+    populateUsersListErrored,
+    createUserFail,
+    createUserStart,
+    createUserSuccess
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

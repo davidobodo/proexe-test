@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { CustomInput } from "../input";
 import { useStyles } from "./styles";
 import { handleCheckEmailValidity } from "../../utils";
+import { createNewUser } from "../../store/actionCreators";
 export const UserForm = () => {
+    const dispatch = useDispatch();
     const classes = useStyles();
 
     const [inputFields, setInputFields] = useState({
@@ -37,37 +40,37 @@ export const UserForm = () => {
             label: "Email",
             required: true,
             value: email
-        },
-        {
-            id: "username",
-            label: "Username",
-            required: false,
-            value: username
-        },
-        {
-            id: "street",
-            label: "Street",
-            required: false,
-            value: street
-        },
-        {
-            id: "suite",
-            label: "Suite",
-            required: false,
-            value: suite
-        },
-        {
-            id: "city",
-            label: "City",
-            required: false,
-            value: city
-        },
-        {
-            id: "zipcode",
-            label: "Zipcode",
-            required: false,
-            value: zipcode
         }
+        // {
+        //     id: "username",
+        //     label: "Username",
+        //     required: false,
+        //     value: username
+        // },
+        // {
+        //     id: "street",
+        //     label: "Street",
+        //     required: false,
+        //     value: street
+        // },
+        // {
+        //     id: "suite",
+        //     label: "Suite",
+        //     required: false,
+        //     value: suite
+        // },
+        // {
+        //     id: "city",
+        //     label: "City",
+        //     required: false,
+        //     value: city
+        // },
+        // {
+        //     id: "zipcode",
+        //     label: "Zipcode",
+        //     required: false,
+        //     value: zipcode
+        // }
     ];
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -159,7 +162,32 @@ export const UserForm = () => {
     //---------------------------------------------------
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(inputFields, "the submitted fields");
+
+        const { name, email } = inputFields;
+        const data = {
+            name,
+            email,
+            username: name.toLowerCase(),
+            address: {
+                street: "Kulas Light",
+                suite: "Apt. 556",
+                city: "Gwenborough",
+                zipcode: "92998-3874",
+                geo: {
+                    lat: "-37.3159",
+                    lng: "81.1496"
+                }
+            },
+            phone: "1-770-736-8031 x56442",
+            website: "hildegard.org",
+            company: {
+                name: "Romaguera-Crona",
+                catchPhrase: "Multi-layered client-server neural-net",
+                bs: "harness real-time e-markets"
+            }
+        };
+
+        dispatch(createNewUser(data));
     };
 
     const [isDisabled, setIsDisabled] = useState(true);
