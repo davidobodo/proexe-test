@@ -1,10 +1,11 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
 import { CustomTable } from "../../components/table";
+import { UserForm } from "../../components/userForm";
 const HomePage = () => {
     return (
         <div style={{ padding: "50px" }}>
-            <CustomTable />
+            {/* <CustomTable /> */}
+            <UserForm />
         </div>
     );
 };

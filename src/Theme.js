@@ -32,6 +32,17 @@ export const theme = createTheme({
                 },
                 h6: {
                     fontSize: "1rem"
+                },
+                label: {
+                    fontSize: "1.4rem"
+                },
+                input: {
+                    fontSize: "1.4rem",
+                    height: "4rem",
+                    borderRadius: "6px",
+                    border: "1px solid rgba(0,0,0,0.4)",
+                    width: "100%",
+                    padding: "0px 1.2rem"
                 }
             }
         }
