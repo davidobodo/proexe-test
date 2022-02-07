@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch, Provider } from "react-redux";
+import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { store } from "./store";
 import { fetchAllUsers } from "./store/actionCreators";
 import { theme } from "./Theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import HomePage from "./pages/home";
+import FormPage from "./pages/form";
 const Root = () => {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.usersVault.users);
@@ -18,7 +20,8 @@ const Root = () => {
     if (isLoadingUsers) return <h1>Loading Users</h1>;
     return (
         <div className="App">
-            <HomePage users={users} />
+            <Route exact component={() => <FormPage />} path="/form" />
+            <Route exact component={() => <HomePage users={users} />} path="/" />
         </div>
     );
 };
@@ -29,10 +32,12 @@ const Root = () => {
 const App = () => {
     return (
         <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Root />
-            </ThemeProvider>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Root />
+                </ThemeProvider>
+            </BrowserRouter>
         </Provider>
     );
 };
