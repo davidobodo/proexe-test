@@ -15,6 +15,7 @@ export const theme = createTheme({
                     padding: "0",
                     boxSizing: "border-box"
                 },
+
                 h1: {
                     fontSize: "2.8rem"
                 },
@@ -46,12 +47,38 @@ export const theme = createTheme({
                 }
             }
         },
+        MuiTableHead: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#eeeeee"
+                }
+            }
+        },
         MuiTableCell: {
             styleOverrides: {
                 root: {
                     fontSize: "1.4rem"
                 }
             }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    "&:hover": {
+                        backgroundColor: "auto"
+                    }
+                }
+            }
         }
+    },
+    typography: {
+        fontFamily: "Ubuntu, sans-serif"
+    },
+    shape: {
+        borderRadius6: 6,
+        borderRadius10: 10
+    },
+    palette: {
+        yellow: "#EFB871"
     }
 });

@@ -9,9 +9,22 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import { CustomButton } from "../../components/button";
 import { TableHeader } from "./TableHeader";
 import { getComparator } from "./utils";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => {
+    return {
+        tableContainer: {
+            border: "1px solid rgb(224,224,224)",
+            borderRadius: theme.shape.borderRadius10,
+            overflow: "hidden"
+        }
+    };
+});
 export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
+    const classes = useStyles();
     //---------------------------------------------------
     //Sorting Logic
     //---------------------------------------------------
@@ -37,61 +50,75 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
     };
 
     return (
-        <Box sx={{ width: "100%" }}>
-            <Paper sx={{ width: "100%", mb: 2 }}>
-                <TableContainer>
-                    <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
-                        <TableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
-                        <TableBody>
-                            {data.length > 0 ? (
-                                data
-                                    .slice()
-                                    .sort(getComparator(order, orderBy))
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row, index) => {
-                                        const { id, name, username, email, address } = row;
+        <Box className={classes.tableContainer}>
+            {/* <Paper sx={{ width: "100%" }}> */}
+            <TableContainer>
+                <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
+                    <TableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
+                    <TableBody>
+                        {data.length > 0 ? (
+                            data
+                                .slice()
+                                .sort(getComparator(order, orderBy))
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    const { id, name, username, email, address } = row;
 
-                                        const labelId = `enhanced-table-checkbox-${index}`;
-                                        return (
-                                            <TableRow tabIndex={-1} key={id}>
-                                                <TableCell component="th" id={labelId} scope="row">
-                                                    {id}
-                                                </TableCell>
-                                                <TableCell>{name}</TableCell>
-                                                <TableCell>{username}</TableCell>
-                                                <TableCell>{email}</TableCell>
-                                                <TableCell>{address.city}</TableCell>
-                                                <TableCell>
-                                                    <Button variant="contained" onClick={() => onEditUser(row)}>
-                                                        Edit
-                                                    </Button>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button variant="contained" onClick={() => onDeleteUser(id)}>
-                                                        Delete
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan="7">There are currently no users to display</TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
+                                    const labelId = `enhanced-table-checkbox-${index}`;
+                                    return (
+                                        <TableRow tabIndex={-1} key={id}>
+                                            <TableCell component="th" id={labelId} scope="row">
+                                                {id}
+                                            </TableCell>
+                                            <TableCell>{name}</TableCell>
+                                            <TableCell>{username}</TableCell>
+                                            <TableCell>{email}</TableCell>
+                                            <TableCell>{address.city}</TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    variant="contained"
+                                                    onClick={() => onEditUser(row)}
+                                                    sx={{
+                                                        backgroundColor: (theme) => theme.palette.yellow
+                                                    }}
+                                                >
+                                                    Edit
+                                                </Button>
+                                                {/* <CustomButton onClick={() => onEditUser(row)} label="Edit" /> */}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    variant="contained"
+                                                    onClick={() => onDeleteUser(id)}
+                                                    sx={{
+                                                        backgroundColor: (theme) => theme.palette.error.main
+                                                    }}
+                                                >
+                                                    Delete
+                                                </Button>
+                                                {/* <CustomButton onClick={() => onDeleteUser(id)} label="Delete" /> */}
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan="7">There are currently no users to display</TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+            {/* </Paper> */}
         </Box>
     );
 };
