@@ -43,7 +43,8 @@ export const theme = createTheme({
                     borderRadius: "6px",
                     border: "1px solid rgba(0,0,0,0.4)",
                     width: "100%",
-                    padding: "0px 1.2rem"
+                    padding: "0px 1.2rem",
+                    fontFamily: "Fjord One, serif"
                 },
                 ".Toastify__toast-body > div:last-child": {
                     fontSize: "1.4rem",

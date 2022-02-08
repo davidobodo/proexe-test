@@ -16,14 +16,14 @@ export const usersSlice = createSlice({
         //---------------------------------------
         //LOAD USERS
         //---------------------------------------
-        loadAllUsers: (state) => {
+        loadAllUsersStart: (state) => {
             state = {
                 ...state,
                 isLoadingUsers: true
             };
             return state;
         },
-        populateUsersList: (state, action) => {
+        loadAllUsersSuccess: (state, action) => {
             state = {
                 ...state,
                 isLoadingUsers: false,
@@ -31,11 +31,10 @@ export const usersSlice = createSlice({
             };
             return state;
         },
-        populateUsersListErrored: (state, action) => {
+        loadAllUsersFail: (state) => {
             state = {
                 ...state,
-                isLoadingUsers: false,
-                loadingUsersError: action.payload
+                isLoadingUsers: false
             };
             return state;
         },
@@ -53,9 +52,9 @@ export const usersSlice = createSlice({
         createUserSuccess: (state, action) => {
             const newUserData = action.payload;
 
-            //Make the id of newly created user to always be one index more than the current last users id
-            const newuserId = state.users[state.users.length - 1].id + 1;
-            newUserData.id = newuserId;
+            //Make the id of newly created user to always be one index more than the current last user's id
+            const newUserId = state.users[state.users.length - 1].id + 1;
+            newUserData.id = newUserId;
 
             state = {
                 ...state,
@@ -65,7 +64,7 @@ export const usersSlice = createSlice({
 
             return state;
         },
-        createUserFail: (state, action) => {
+        createUserFail: (state) => {
             state = {
                 ...state,
                 isCreatingUser: false
@@ -96,7 +95,7 @@ export const usersSlice = createSlice({
 
             return state;
         },
-        editUserFail: (state, action) => {
+        editUserFail: (state) => {
             state = {
                 ...state,
                 isEditingUser: false
@@ -134,20 +133,16 @@ export const usersSlice = createSlice({
                 ...state,
                 isDeletingUser: false
             };
-
             return state;
-        },
-        resetUsersVault: () => {
-            return initialState;
         }
     }
 });
 
 export const {
-    loadAllUsers,
-    populateUsersList,
+    loadAllUsersStart,
+    loadAllUsersSuccess,
     resetUsersVault,
-    populateUsersListErrored,
+    loadAllUsersFail,
     createUserFail,
     createUserStart,
     createUserSuccess,
