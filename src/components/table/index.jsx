@@ -9,37 +9,22 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import { TableHeader } from "./TableHeader";
-import { getComparator } from "./utils";
-import { makeStyles } from "@mui/styles";
+import { getComparator } from "../../utils";
+import { useStyles } from "./styles";
 
-const useStyles = makeStyles((theme) => {
-    return {
-        tableContainer: {
-            border: "1px solid rgb(224,224,224)",
-            borderRadius: theme.shape.borderRadius10,
-            overflow: "hidden"
-        },
-        emptyTableCell: {
-            textAlign: "center !important"
-        }
-    };
-});
 export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
     const classes = useStyles();
-    //---------------------------------------------------
+
     //Sorting Logic
-    //---------------------------------------------------
-    const [order, setOrder] = useState("asc");
-    const [orderBy, setOrderBy] = useState("");
+    const [order, setOrder] = useState("asc"); //Ascending or Descending
+    const [orderBy, setOrderBy] = useState(""); //Column to trigger order from
     const handleRequestSort = (property) => {
         const isAsc = orderBy === property && order === "asc";
         setOrder(isAsc ? "desc" : "asc");
         setOrderBy(property);
     };
 
-    //---------------------------------------------------
     //Pagination Logic
-    //---------------------------------------------------
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const handleChangePage = (event, newPage) => {
@@ -53,7 +38,7 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
     return (
         <Box className={classes.tableContainer}>
             <TableContainer>
-                <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
+                <Table aria-labelledby="tableTitle" size="medium">
                     <TableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
                     <TableBody>
                         {data.length > 0 ? (

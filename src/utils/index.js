@@ -13,3 +13,21 @@ export const showSuccessToast = (message) => {
         progress: undefined
     });
 };
+
+const descendingComparator = (a, b, orderBy) => {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+};
+
+export const getComparator = (order, orderBy) => {
+    if (order === "desc") {
+        return (a, b) => descendingComparator(a, b, orderBy);
+    } else {
+        return (a, b) => -descendingComparator(a, b, orderBy);
+    }
+};

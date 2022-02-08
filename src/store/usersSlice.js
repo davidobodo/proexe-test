@@ -53,7 +53,7 @@ export const usersSlice = createSlice({
         createUserSuccess: (state, action) => {
             const newUserData = action.payload;
 
-            //Make the id of newly created user to always be one index more than the current last user
+            //Make the id of newly created user to always be one index more than the current last users id
             const newuserId = state.users[state.users.length - 1].id + 1;
             newUserData.id = newuserId;
 

@@ -209,7 +209,7 @@ export const UserForm = ({ sentUserData }) => {
                 {FORM_FIELDS.map((field) => {
                     const { id, label, value } = field;
                     return (
-                        <div key={id} className="formField">
+                        <div key={id} className={classes.formField}>
                             <label htmlFor={id}>{label}</label>
                             <CustomInput
                                 id={id}
@@ -231,10 +231,10 @@ export const UserForm = ({ sentUserData }) => {
                 <Button
                     variant="outlined"
                     onClick={handleRedirectToHome}
-                    style={{ marginRight: "1.2rem" }}
                     sx={{
                         color: (theme) => theme.palette.error.main,
                         borderColor: (theme) => theme.palette.error.main,
+                        marginRight: "1.2rem",
                         "&.MuiButtonBase-root:hover": {
                             borderColor: (theme) => theme.palette.error.main,
                             backgroundColor: "transparent"

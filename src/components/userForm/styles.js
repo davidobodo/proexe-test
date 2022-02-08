@@ -8,25 +8,25 @@ export const useStyles = makeStyles((theme) => {
         },
 
         formBody: {
-            padding: "2.4rem 0px",
+            padding: "2.4rem 0px"
+        },
 
-            "& .formField": {
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: "3.4rem",
+        formField: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "3.4rem",
 
-                [theme.breakpoints.up("md")]: {
-                    paddingLeft: "15%"
-                },
+            [theme.breakpoints.up("md")]: {
+                paddingLeft: "15%"
+            },
 
-                "&:last-child": {
-                    marginBottom: "0px"
-                },
+            "&:last-child": {
+                marginBottom: "0px"
+            },
 
-                "& label": {
-                    width: "15%"
-                }
+            "& label": {
+                width: "15%"
             }
         },
 

@@ -6,7 +6,7 @@ import { CustomTable } from "../../components/table";
 import { DeleteModal } from "../../components/modal";
 import { BackdropWithLoader } from "../../components/loader";
 import { deleteOneUser } from "../../store/actionCreators";
-import { useStyles } from "./styles";
+import { useStyles } from "../styles";
 
 const HomePage = ({ history }) => {
     const classes = useStyles();
@@ -48,17 +48,18 @@ const HomePage = ({ history }) => {
     if (isLoadingUsers) {
         return <BackdropWithLoader hasLabel={true} label="Loading users..." />;
     }
+
     return (
         <section className={classes.pageWrapper}>
-            <h1 className="page-title">Dashboard</h1>
+            <h1 className={classes.pageTitle}>Dashboard</h1>
             <section className={classes.sectionContainer}>
-                <header className="header">
+                <header className={classes.sectionContainerHeader}>
                     <h2>Users List</h2>
                     <Button variant="contained" onClick={onAddNewUser}>
                         Add New User
                     </Button>
                 </header>
-                <div className="table-wrapper">
+                <div className={classes.sectionContainerBody}>
                     <CustomTable data={users} onDeleteUser={onDeleteUser} onEditUser={onEditUser} />
                 </div>
             </section>

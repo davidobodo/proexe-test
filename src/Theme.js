@@ -46,7 +46,8 @@ export const theme = createTheme({
                     padding: "0px 1.2rem"
                 },
                 ".Toastify__toast-body > div:last-child": {
-                    fontSize: "1.4rem"
+                    fontSize: "1.4rem",
+                    fontFamily: "Fjord One, serif"
                 }
             }
         },
