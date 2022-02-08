@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+<p align="center" style="background-color: #fff; padding: 20px">
+<img src="https://uploads-ssl.webflow.com/610824d4fcb6d649baba751a/616ef5037713a882f83023ee_Proexe_logo_dark.svg" />
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Proexe Frontend Dashboard Test
 
-## Available Scripts
+-   App Link https://proexe-wcs.netlify.app/
 
-In the project directory, you can run:
+## Language choice
 
-### `yarn start`
+`Vanilla Javascript` was used to write the entire codebase, however `Typescript` can be equally used, but since it was not part of the specification decided to go with plain vanilla Javascript
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Styling choice
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In terms of preference, I usually like to build my components and entire styling system right from scratch or use solutions like [Tailwind css](https://tailwindcss.com/), [Styled Components](https://styled-components.com/) and this is because pixel perfection as well as modification can be easily made, especially when a design file is given by a designer and the exact replica is needed. However the reasons below made me choose [Material UI](https://mui.com/)
 
-### `yarn test`
+1. The application is not too large.
+2. Readily available accessible components. [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)
+3. Readiily available theme, colors and design system.
+4. Since no specific design file, design of dashboard is flexible (i.e no need for pixel perfection)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running app on local
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   Clone repository
+-   run `yarn` to install packages
+-   run `yarn start` to start up app on localhost
