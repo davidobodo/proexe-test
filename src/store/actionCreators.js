@@ -40,13 +40,7 @@ export const createNewUser = (values, cb) => async (dispatch) => {
             }
         });
         const data = await res.json();
-
-        const _data = {
-            ...data,
-            id: new Date().getTime() //To ensure generated ids are always unique
-        };
-
-        dispatch(createUserSuccess(_data));
+        dispatch(createUserSuccess(data));
         showSuccessToast("User created successfully");
         cb();
     } catch (err) {

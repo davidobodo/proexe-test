@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => {
             border: "1px solid rgb(224,224,224)",
             borderRadius: theme.shape.borderRadius10,
             overflow: "hidden"
+        },
+        emptyTableCell: {
+            textAlign: "center !important"
         }
     };
 });
@@ -49,7 +52,6 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
 
     return (
         <Box className={classes.tableContainer}>
-            {/* <Paper sx={{ width: "100%" }}> */}
             <TableContainer>
                 <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
                     <TableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
@@ -105,7 +107,9 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
                                 })
                         ) : (
                             <TableRow>
-                                <TableCell colSpan="7">There are currently no users to display</TableCell>
+                                <TableCell colSpan="7" className={classes.emptyTableCell}>
+                                    There are currently no users to display
+                                </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
@@ -120,7 +124,6 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            {/* </Paper> */}
         </Box>
     );
 };

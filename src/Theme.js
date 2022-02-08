@@ -84,10 +84,19 @@ export const theme = createTheme({
                     }
                 }
             }
+        },
+        MuiTableSortLabel: {
+            styleOverrides: {
+                root: {
+                    "&:hover, &:focus": {
+                        color: "#1976d2"
+                    }
+                }
+            }
         }
     },
     typography: {
-        fontFamily: "Ubuntu, sans-serif"
+        fontFamily: "Fjord One, serif"
     },
     shape: {
         borderRadius6: 6,

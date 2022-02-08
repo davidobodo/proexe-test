@@ -255,7 +255,13 @@ export const UserForm = ({ sentUserData }) => {
                         }
                     }}
                 >
-                    {sentUserData ? "Save" : "Submit"}
+                    {sentUserData
+                        ? isEditingUser
+                            ? "Saving..."
+                            : "Save"
+                        : isCreatingUser
+                        ? "Submitting..."
+                        : "Submit"}
                 </Button>
             </footer>
         </form>

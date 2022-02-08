@@ -63,6 +63,6 @@ DeleteModal.propTypes = {
     open: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
     handleDeleteUser: PropTypes.func.isRequired,
-    userId: PropTypes.string,
+    userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isDeletingUser: PropTypes.bool.isRequired
 };
