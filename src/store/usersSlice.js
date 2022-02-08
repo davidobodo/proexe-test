@@ -5,7 +5,8 @@ const initialState = {
     isLoadingUsers: false,
     loadingUsersError: null,
     isCreatingUser: false,
-    isDeletingUser: false
+    isDeletingUser: false,
+    isEditingUser: false
 };
 
 export const usersSlice = createSlice({
@@ -67,6 +68,38 @@ export const usersSlice = createSlice({
             return state;
         },
         //---------------------------------------
+        //EDIT USER
+        //---------------------------------------
+        editUserStart: (state) => {
+            state = {
+                ...state,
+                isEditingUser: true
+            };
+
+            return state;
+        },
+        editUserSuccess: (state, action) => {
+            const clonedStateUsers = JSON.parse(JSON.stringify(state.users));
+            const editedUserIndex = clonedStateUsers.findIndex((item) => item.id === action.payload.id);
+            clonedStateUsers.splice(editedUserIndex, 1, action.payload);
+            state = {
+                ...state,
+                isEditingUser: false,
+                users: clonedStateUsers
+            };
+
+            return state;
+        },
+        editUserFail: (state, action) => {
+            state = {
+                ...state,
+                isEditingUser: false
+            };
+
+            return state;
+        },
+
+        //---------------------------------------
         //DELETE USER
         //---------------------------------------
         deleteUserStart: (state) => {
@@ -79,8 +112,8 @@ export const usersSlice = createSlice({
         },
         deleteUserSuccess: (state, action) => {
             const userIdToRemove = action.payload;
-            const clonedState = JSON.parse(JSON.stringify(state.users));
-            const updatedUsers = clonedState.filter((item) => item.id !== userIdToRemove);
+            const clonedStateUsers = JSON.parse(JSON.stringify(state.users));
+            const updatedUsers = clonedStateUsers.filter((item) => item.id !== userIdToRemove);
 
             state = {
                 ...state,
@@ -114,7 +147,10 @@ export const {
     createUserSuccess,
     deleteUserStart,
     deleteUserSuccess,
-    deleteUserFail
+    deleteUserFail,
+    editUserFail,
+    editUserStart,
+    editUserSuccess
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

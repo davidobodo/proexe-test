@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import PropTypes from "prop-types";
 
 const style = {
     position: "absolute",
@@ -41,4 +41,11 @@ export const DeleteModal = ({ open, handleClose, handleDeleteUser, userId }) => 
             </Modal>
         </div>
     );
+};
+
+DeleteModal.propTypes = {
+    open: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    handleDeleteUser: PropTypes.func.isRequired,
+    userId: PropTypes.string
 };

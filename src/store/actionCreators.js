@@ -8,7 +8,10 @@ import {
     createUserSuccess,
     deleteUserStart,
     deleteUserSuccess,
-    deleteUserFail
+    deleteUserFail,
+    editUserFail,
+    editUserStart,
+    editUserSuccess
 } from "./usersSlice";
 
 const USERS_LIST_API = "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data";
@@ -40,7 +43,7 @@ export const createNewUser = (values) => async (dispatch) => {
 
         const _data = {
             ...data,
-            id: new Date().getTime()
+            id: new Date().getTime() //To ensure generated ids are always unique
         };
 
         dispatch(createUserSuccess(_data));
@@ -64,5 +67,27 @@ export const deleteOneUser = (id) => async (dispatch) => {
         dispatch(deleteUserSuccess(id));
     } catch (err) {
         dispatch(deleteUserFail());
+    }
+};
+
+export const editOneUser = (values, cb) => async (dispatch) => {
+    dispatch(editUserStart());
+
+    try {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${values.id}`, {
+            method: "PUT",
+            body: JSON.stringify(values),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const data = await res.json();
+
+        console.log(data, "THE DATA AFTER EDITING");
+
+        dispatch(editUserSuccess(data));
+        cb();
+    } catch (err) {
+        dispatch(editUserFail());
     }
 };

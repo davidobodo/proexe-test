@@ -20,8 +20,8 @@ const Root = () => {
     if (isLoadingUsers) return <h1>Loading Users</h1>;
     return (
         <div className="App">
-            <Route exact component={() => <FormPage />} path="/form" />
-            <Route exact component={() => <HomePage users={users} />} path="/" />
+            <Route exact component={(props) => <FormPage {...props} />} path="/form" />
+            <Route exact component={(props) => <HomePage users={users} {...props} />} path="/" />
         </div>
     );
 };

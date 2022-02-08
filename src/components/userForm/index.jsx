@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { CustomInput } from "../input";
 import { useStyles } from "./styles";
 import { handleCheckEmailValidity } from "../../utils";
-import { createNewUser } from "../../store/actionCreators";
-export const UserForm = () => {
+import { createNewUser, editOneUser } from "../../store/actionCreators";
+
+export const UserForm = ({ sentUserData }) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const classes = useStyles();
 
@@ -187,7 +191,20 @@ export const UserForm = () => {
             }
         };
 
-        dispatch(createNewUser(data));
+        if (sentUserData) {
+            data.id = sentUserData.id; //since id doesnt change
+            dispatch(
+                editOneUser(data, () => {
+                    history.push("/");
+                })
+            );
+        } else {
+            dispatch(createNewUser(data));
+        }
+    };
+
+    const onCancel = () => {
+        history.push("/");
     };
 
     const [isDisabled, setIsDisabled] = useState(true);
@@ -198,6 +215,16 @@ export const UserForm = () => {
             setIsDisabled(true);
         }
     }, [name, email]);
+
+    useEffect(() => {
+        if (sentUserData) {
+            const { name, email } = sentUserData;
+            setInputFields({
+                name,
+                email
+            });
+        }
+    }, [sentUserData]);
     return (
         <Paper sx={{ width: "100%", mb: 2 }}>
             <form noValidate onSubmit={handleSubmit}>
@@ -226,12 +253,18 @@ export const UserForm = () => {
                 </div>
 
                 <footer className={classes.formFooter}>
-                    <Button variant="contained">Cancel</Button>
+                    <Button variant="contained" onClick={onCancel}>
+                        Cancel
+                    </Button>
                     <Button variant="contained" type="submit" disabled={isDisabled}>
-                        Submit
+                        {sentUserData ? "Save" : "Submit"}
                     </Button>
                 </footer>
             </form>
         </Paper>
     );
+};
+
+UserForm.propTypes = {
+    sentUserData: PropTypes.object
 };
