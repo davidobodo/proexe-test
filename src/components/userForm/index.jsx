@@ -226,42 +226,42 @@ export const UserForm = ({ sentUserData }) => {
         }
     }, [sentUserData]);
     return (
-        <Paper sx={{ width: "100%", mb: 2 }}>
-            <form noValidate onSubmit={handleSubmit}>
-                <h1 className={classes.formHeader}>Form</h1>
+        // <Paper sx={{ width: "100%", mb: 2 }}>
+        <form noValidate onSubmit={handleSubmit}>
+            {/* <h1 className={classes.formHeader}>Form</h1> */}
 
-                <div className={classes.formBody}>
-                    {FORM_FIELDS.map((field) => {
-                        const { id, label, required, value } = field;
-                        return (
-                            <div key={id} className="formField">
-                                <label htmlFor={id}>{label}</label>
-                                <CustomInput
-                                    id={id}
-                                    name={id}
-                                    placeholder={label}
-                                    ariaLabel={label}
-                                    value={value}
-                                    onChange={handleChange}
-                                    hasError={inputFieldsError[id]}
-                                    errorMessage={inputFieldsErrorMessage[id]}
-                                    onBlur={handleValidateField}
-                                />
-                            </div>
-                        );
-                    })}
-                </div>
+            <div className={classes.formBody}>
+                {FORM_FIELDS.map((field) => {
+                    const { id, label, required, value } = field;
+                    return (
+                        <div key={id} className="formField">
+                            <label htmlFor={id}>{label}</label>
+                            <CustomInput
+                                id={id}
+                                name={id}
+                                placeholder={label}
+                                ariaLabel={label}
+                                value={value}
+                                onChange={handleChange}
+                                hasError={inputFieldsError[id]}
+                                errorMessage={inputFieldsErrorMessage[id]}
+                                onBlur={handleValidateField}
+                            />
+                        </div>
+                    );
+                })}
+            </div>
 
-                <footer className={classes.formFooter}>
-                    <Button variant="contained" onClick={onCancel}>
-                        Cancel
-                    </Button>
-                    <Button variant="contained" type="submit" disabled={isDisabled}>
-                        {sentUserData ? "Save" : "Submit"}
-                    </Button>
-                </footer>
-            </form>
-        </Paper>
+            <footer className={classes.formFooter}>
+                <Button variant="contained" onClick={onCancel} style={{ marginRight: "1.2rem" }}>
+                    Cancel
+                </Button>
+                <Button variant="contained" type="submit" disabled={isDisabled}>
+                    {sentUserData ? "Save" : "Submit"}
+                </Button>
+            </footer>
+        </form>
+        // </Paper>
     );
 };
 

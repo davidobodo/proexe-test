@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => {
     return {
         inputWrapper: {
             position: "relative",
+            flex: 1,
 
             "&.error": {
                 "& input": {

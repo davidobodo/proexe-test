@@ -52,7 +52,7 @@ export const createNewUser = (values) => async (dispatch) => {
     }
 };
 
-export const deleteOneUser = (id) => async (dispatch) => {
+export const deleteOneUser = (id, cb) => async (dispatch) => {
     dispatch(deleteUserStart());
 
     try {
@@ -65,6 +65,7 @@ export const deleteOneUser = (id) => async (dispatch) => {
         await res.json();
 
         dispatch(deleteUserSuccess(id));
+        cb();
     } catch (err) {
         dispatch(deleteUserFail());
     }

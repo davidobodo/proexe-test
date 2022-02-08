@@ -1,45 +1,75 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import PropTypes from "prop-types";
+import { makeStyles } from "@mui/styles";
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4
-};
+const useStyles = makeStyles((theme) => {
+    return {
+        wrapper: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: theme.palette.common.white,
+            // padding: "2rem",
+            borderRadius: theme.shape.borderRadius,
+            width: 400,
+
+            "& .title": {
+                padding: "1rem 2rem",
+                borderBottom: `1px solid ${theme.palette.divider}`
+            },
+
+            "& .body": {
+                padding: "2rem",
+                fontSize: "1.6rem",
+                textAlign: "center",
+                borderBottom: `1px solid ${theme.palette.divider}`
+            },
+
+            "& .ctas": {
+                padding: "1rem 2rem",
+                display: "flex",
+                justifyContent: "flex-end",
+
+                "& button:first-child": {
+                    marginRight: "1.2rem"
+                },
+
+                "& button:last-child": {
+                    backgroundColor: theme.palette.error.main
+                }
+            }
+        }
+    };
+});
 
 export const DeleteModal = ({ open, handleClose, handleDeleteUser, userId }) => {
-    return (
-        <div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <h1>Delete</h1>
-                    <p>Are you sure you want to delete this user? Action cannot be undone</p>
+    const classes = useStyles();
 
-                    <div>
-                        <Button variant="contained" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="contained" onClick={() => handleDeleteUser(userId)}>
-                            Delete
-                        </Button>
-                    </div>
-                </Box>
-            </Modal>
-        </div>
+    return (
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <section className={classes.wrapper}>
+                <h2 className="title">Delete</h2>
+                <p className="body">
+                    Are you sure you want to delete this user? <br /> Action cannot be undone
+                </p>
+                <div className="ctas">
+                    <Button variant="contained" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="contained" onClick={() => handleDeleteUser(userId)}>
+                        Delete
+                    </Button>
+                </div>
+            </section>
+        </Modal>
     );
 };
 

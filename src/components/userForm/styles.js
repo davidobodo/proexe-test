@@ -8,19 +8,21 @@ export const useStyles = makeStyles((theme) => {
         },
 
         formBody: {
-            padding: "2.4rem",
+            padding: "2.4rem 0px",
 
             "& .formField": {
                 display: "flex",
                 justifyContent: "center",
+                alignItems: "center",
                 marginBottom: "3.4rem",
+                paddingLeft: "15%",
 
                 "&:last-child": {
                     marginBottom: "0px"
                 },
 
                 "& label": {
-                    width: "30%"
+                    width: "15%"
                 }
             }
         },
@@ -28,7 +30,7 @@ export const useStyles = makeStyles((theme) => {
         formFooter: {
             display: "flex",
             justifyContent: "flex-end",
-            padding: "2.4rem"
+            padding: "2.4rem 0px"
         }
     };
 });
