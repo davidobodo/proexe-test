@@ -43,7 +43,7 @@ export const createNewUser = (values, cb) => async (dispatch) => {
     dispatch(createUserStart());
 
     try {
-        const res = await fetch(`${USERS_LIST_API}/posts`, {
+        const res = await fetch(`${JSON_PLACEHOLDER_API}/posts`, {
             method: "POST",
             body: JSON.stringify(values),
             headers: {
