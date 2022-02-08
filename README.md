@@ -1,4 +1,4 @@
-<p align="center" style="background-color: #fff; padding: 20px">
+<p align="center">
 <img src="https://uploads-ssl.webflow.com/610824d4fcb6d649baba751a/616ef5037713a882f83023ee_Proexe_logo_dark.svg" />
 </p>
 

@@ -5,7 +5,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { store } from "./store";
 import { fetchAllUsers } from "./store/actionCreators";
 import { theme } from "./Theme";
+import { ToastContainer, toast } from "react-toastify";
 import CssBaseline from "@mui/material/CssBaseline";
+import "react-toastify/dist/ReactToastify.css";
 import HomePage from "./pages/home";
 import FormPage from "./pages/form";
 
@@ -34,6 +36,7 @@ const App = () => {
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
                     <Root />
+                    <ToastContainer />
                 </ThemeProvider>
             </BrowserRouter>
         </Provider>

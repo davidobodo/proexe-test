@@ -1,7 +1,6 @@
 import {
     loadAllUsers,
     populateUsersList,
-    resetUsersVault,
     populateUsersListErrored,
     createUserFail,
     createUserStart,
@@ -13,6 +12,7 @@ import {
     editUserStart,
     editUserSuccess
 } from "./usersSlice";
+import { showSuccessToast } from "../utils";
 
 const USERS_LIST_API = "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data";
 
@@ -28,7 +28,7 @@ export const fetchAllUsers = () => async (dispatch) => {
     }
 };
 
-export const createNewUser = (values) => async (dispatch) => {
+export const createNewUser = (values, cb) => async (dispatch) => {
     dispatch(createUserStart());
 
     try {
@@ -47,6 +47,8 @@ export const createNewUser = (values) => async (dispatch) => {
         };
 
         dispatch(createUserSuccess(_data));
+        showSuccessToast("User created successfully");
+        cb();
     } catch (err) {
         dispatch(createUserFail(err));
     }
@@ -65,6 +67,8 @@ export const deleteOneUser = (id, cb) => async (dispatch) => {
         await res.json();
 
         dispatch(deleteUserSuccess(id));
+        showSuccessToast("User deleted successfully");
+
         cb();
     } catch (err) {
         dispatch(deleteUserFail());
@@ -84,9 +88,8 @@ export const editOneUser = (values, cb) => async (dispatch) => {
         });
         const data = await res.json();
 
-        console.log(data, "THE DATA AFTER EDITING");
-
         dispatch(editUserSuccess(data));
+        showSuccessToast("User edited successfully");
         cb();
     } catch (err) {
         dispatch(editUserFail());

@@ -1,21 +1,12 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
+import Dialog from "@mui/material/Dialog";
 import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => {
     return {
         wrapper: {
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: theme.palette.common.white,
-            // padding: "2rem",
-            borderRadius: theme.shape.borderRadius,
-            width: 400,
-
             "& .title": {
                 padding: "1rem 2rem",
                 borderBottom: `1px solid ${theme.palette.divider}`
@@ -45,16 +36,11 @@ const useStyles = makeStyles((theme) => {
     };
 });
 
-export const DeleteModal = ({ open, handleClose, handleDeleteUser, userId }) => {
+export const DeleteModal = ({ open, handleClose, handleDeleteUser, userId, isDeletingUser }) => {
     const classes = useStyles();
 
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
+        <Dialog onClose={handleClose} open={open}>
             <section className={classes.wrapper}>
                 <h2 className="title">Delete</h2>
                 <p className="body">
@@ -64,12 +50,12 @@ export const DeleteModal = ({ open, handleClose, handleDeleteUser, userId }) => 
                     <Button variant="contained" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="contained" onClick={() => handleDeleteUser(userId)}>
-                        Delete
+                    <Button variant="contained" onClick={() => handleDeleteUser(userId)} disabled={isDeletingUser}>
+                        {isDeletingUser ? "Deleting..." : "Delete"}
                     </Button>
                 </div>
             </section>
-        </Modal>
+        </Dialog>
     );
 };
 
@@ -77,5 +63,6 @@ DeleteModal.propTypes = {
     open: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
     handleDeleteUser: PropTypes.func.isRequired,
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    isDeletingUser: PropTypes.bool.isRequired
 };

@@ -14,6 +14,7 @@ const HomePage = ({ history }) => {
 
     const users = useSelector((state) => state.usersVault.users);
     const isLoadingUsers = useSelector((state) => state.usersVault.isLoadingUsers);
+    const isDeletingUser = useSelector((state) => state.usersVault.isDeletingUser);
 
     const [userToDeleteId, setUserToDeleteId] = useState("");
 
@@ -66,6 +67,7 @@ const HomePage = ({ history }) => {
                 handleClose={onCloseModal}
                 handleDeleteUser={handleDeleteUser}
                 userId={userToDeleteId}
+                isDeletingUser={isDeletingUser}
             />
         </section>
     );

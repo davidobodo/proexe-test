@@ -7,9 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { CustomButton } from "../../components/button";
 import { TableHeader } from "./TableHeader";
 import { getComparator } from "./utils";
 import { makeStyles } from "@mui/styles";
@@ -79,24 +77,28 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
                                                     variant="contained"
                                                     onClick={() => onEditUser(row)}
                                                     sx={{
-                                                        backgroundColor: (theme) => theme.palette.yellow
+                                                        backgroundColor: (theme) => theme.palette.yellow,
+                                                        "&.MuiButtonBase-root:hover": {
+                                                            bgcolor: (theme) => theme.palette.yellow
+                                                        }
                                                     }}
                                                 >
                                                     Edit
                                                 </Button>
-                                                {/* <CustomButton onClick={() => onEditUser(row)} label="Edit" /> */}
                                             </TableCell>
                                             <TableCell>
                                                 <Button
                                                     variant="contained"
                                                     onClick={() => onDeleteUser(id)}
                                                     sx={{
-                                                        backgroundColor: (theme) => theme.palette.error.main
+                                                        backgroundColor: (theme) => theme.palette.error.main,
+                                                        "&.MuiButtonBase-root:hover": {
+                                                            bgcolor: (theme) => theme.palette.error.main
+                                                        }
                                                     }}
                                                 >
                                                     Delete
                                                 </Button>
-                                                {/* <CustomButton onClick={() => onDeleteUser(id)} label="Delete" /> */}
                                             </TableCell>
                                         </TableRow>
                                     );

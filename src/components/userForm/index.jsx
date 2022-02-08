@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { CustomInput } from "../input";
 import { useStyles } from "./styles";
@@ -12,8 +11,14 @@ import { createNewUser, editOneUser } from "../../store/actionCreators";
 export const UserForm = ({ sentUserData }) => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const isCreatingUser = useSelector((state) => state.usersVault.isCreatingUser);
+    const isEditingUser = useSelector((state) => state.usersVault.isEditingUser);
     const classes = useStyles();
 
+    /**
+     *Added extra input fields to support adding and editing those fields.
+     *However since the pdf file specified that the form should contain just name and email, we are displaying just those two
+     */
     const [inputFields, setInputFields] = useState({
         name: "",
         email: "",
@@ -23,59 +28,31 @@ export const UserForm = ({ sentUserData }) => {
         city: "",
         zipCode: ""
     });
+
     const [inputFieldsError, setInputFieldsError] = useState({
         name: false,
         email: false
     });
+
     const [inputFieldsErrorMessage, setInputFieldsErrorMessage] = useState({
         name: "Name is Required",
         email: "Email is Required"
     });
-    const { name, email, username, street, suite, city, zipcode } = inputFields;
+
+    const { name, email } = inputFields;
     const FORM_FIELDS = [
         {
             id: "name",
             label: "Name",
-            required: true,
             value: name
         },
         {
             id: "email",
             label: "Email",
-            required: true,
             value: email
         }
-        // {
-        //     id: "username",
-        //     label: "Username",
-        //     required: false,
-        //     value: username
-        // },
-        // {
-        //     id: "street",
-        //     label: "Street",
-        //     required: false,
-        //     value: street
-        // },
-        // {
-        //     id: "suite",
-        //     label: "Suite",
-        //     required: false,
-        //     value: suite
-        // },
-        // {
-        //     id: "city",
-        //     label: "City",
-        //     required: false,
-        //     value: city
-        // },
-        // {
-        //     id: "zipcode",
-        //     label: "Zipcode",
-        //     required: false,
-        //     value: zipcode
-        // }
     ];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputFields((prevState) => {
@@ -101,9 +78,6 @@ export const UserForm = ({ sentUserData }) => {
         }
     };
 
-    //---------------------------------------------------
-    //Validations
-    //---------------------------------------------------
     const validateName = (value) => {
         if (value.trim().length === 0) {
             setInputFieldsErrorMessage((prevState) => {
@@ -161,17 +135,18 @@ export const UserForm = ({ sentUserData }) => {
         }
     };
 
-    //---------------------------------------------------
-    //Form Submission
-    //---------------------------------------------------
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const { name, email } = inputFields;
+
+        /**
+         * Created some dummy placeholders to fill the fields that are not displayed in the form
+         */
         const data = {
             name,
             email,
-            username: name.toLowerCase(),
+            username: name.toLowerCase().trim(),
             address: {
                 street: "Kulas Light",
                 suite: "Apt. 556",
@@ -192,21 +167,20 @@ export const UserForm = ({ sentUserData }) => {
         };
 
         if (sentUserData) {
-            data.id = sentUserData.id; //since id doesnt change
-            dispatch(
-                editOneUser(data, () => {
-                    history.push("/");
-                })
-            );
+            data.id = sentUserData.id; //since id doesnt change when editing
+            dispatch(editOneUser(data, handleRedirectToHome));
         } else {
-            dispatch(createNewUser(data));
+            dispatch(createNewUser(data, handleRedirectToHome));
         }
     };
 
-    const onCancel = () => {
+    const handleRedirectToHome = () => {
         history.push("/");
     };
 
+    /**
+     * To enable or disabled the form submission button
+     */
     const [isDisabled, setIsDisabled] = useState(true);
     useEffect(() => {
         if (name.trim().length > 0 && email.trim().length > 0 && handleCheckEmailValidity(email)) {
@@ -216,6 +190,9 @@ export const UserForm = ({ sentUserData }) => {
         }
     }, [name, email]);
 
+    /**
+     * When page is in edit mode, populate state with the users data to edit
+     */
     useEffect(() => {
         if (sentUserData) {
             const { name, email } = sentUserData;
@@ -225,14 +202,12 @@ export const UserForm = ({ sentUserData }) => {
             });
         }
     }, [sentUserData]);
-    return (
-        // <Paper sx={{ width: "100%", mb: 2 }}>
-        <form noValidate onSubmit={handleSubmit}>
-            {/* <h1 className={classes.formHeader}>Form</h1> */}
 
+    return (
+        <form noValidate onSubmit={handleSubmit}>
             <div className={classes.formBody}>
                 {FORM_FIELDS.map((field) => {
-                    const { id, label, required, value } = field;
+                    const { id, label, value } = field;
                     return (
                         <div key={id} className="formField">
                             <label htmlFor={id}>{label}</label>
@@ -253,15 +228,37 @@ export const UserForm = ({ sentUserData }) => {
             </div>
 
             <footer className={classes.formFooter}>
-                <Button variant="contained" onClick={onCancel} style={{ marginRight: "1.2rem" }}>
+                <Button
+                    variant="outlined"
+                    onClick={handleRedirectToHome}
+                    style={{ marginRight: "1.2rem" }}
+                    sx={{
+                        color: (theme) => theme.palette.error.main,
+                        borderColor: (theme) => theme.palette.error.main,
+                        "&.MuiButtonBase-root:hover": {
+                            borderColor: (theme) => theme.palette.error.main,
+                            backgroundColor: "transparent"
+                        }
+                    }}
+                >
                     Cancel
                 </Button>
-                <Button variant="contained" type="submit" disabled={isDisabled}>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={isDisabled || isCreatingUser || isEditingUser}
+                    size="large"
+                    sx={{
+                        backgroundColor: (theme) => theme.palette.success.main,
+                        "&.MuiButtonBase-root:hover,&.MuiButtonBase-root:disabled ": {
+                            backgroundColor: (theme) => theme.palette.success.main
+                        }
+                    }}
+                >
                     {sentUserData ? "Save" : "Submit"}
                 </Button>
             </footer>
         </form>
-        // </Paper>
     );
 };
 

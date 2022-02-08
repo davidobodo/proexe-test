@@ -15,7 +15,10 @@ export const useStyles = makeStyles((theme) => {
                 justifyContent: "center",
                 alignItems: "center",
                 marginBottom: "3.4rem",
-                paddingLeft: "15%",
+
+                [theme.breakpoints.up("md")]: {
+                    paddingLeft: "15%"
+                },
 
                 "&:last-child": {
                     marginBottom: "0px"

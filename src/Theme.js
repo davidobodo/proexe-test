@@ -44,6 +44,9 @@ export const theme = createTheme({
                     border: "1px solid rgba(0,0,0,0.4)",
                     width: "100%",
                     padding: "0px 1.2rem"
+                },
+                ".Toastify__toast-body > div:last-child": {
+                    fontSize: "1.4rem"
                 }
             }
         },
@@ -64,8 +67,20 @@ export const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
+                    fontSize: "1.2rem",
+                    textTransform: "capitalize",
+                    cursor: "pointer",
+
                     "&:hover": {
-                        backgroundColor: "auto"
+                        backgroundColor: "auto",
+                        boxShadow:
+                            "0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)"
+                    },
+
+                    "&.Mui-disabled": {
+                        opacity: "0.5",
+                        color: "#fff",
+                        cursor: "not-allowed"
                     }
                 }
             }
