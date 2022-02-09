@@ -95,6 +95,23 @@ export const theme = createTheme({
                     }
                 }
             }
+        },
+        MuiTablePagination: {
+            styleOverrides: {
+                selectLabel: {
+                    fontSize: "1.4rem"
+                },
+                displayedRows: {
+                    fontSize: "1.4rem"
+                }
+            }
+        },
+        MuiSelect: {
+            styleOverrides: {
+                nativeInput: {
+                    fontSize: "1.4rem"
+                }
+            }
         }
     },
     typography: {
