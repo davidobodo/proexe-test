@@ -1,16 +1,26 @@
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles(() => {
+    return {
+        wrapper: {
+            backgroundColor: "#fff !important",
+            flexDirection: "column"
+        },
+        label: {
+            fontSize: "1.4rem",
+            marginTop: "1.2rem"
+        }
+    };
+});
 export const BackdropWithLoader = ({ open = true, handleClose, hasLabel = false, label }) => {
+    const classes = useStyles();
     return (
-        <Backdrop open={open} onClick={handleClose} style={{ backgroundColor: "#fff", flexDirection: "column" }}>
+        <Backdrop open={open} onClick={handleClose} className={classes.wrapper}>
             <CircularProgress />
-            {hasLabel && (
-                <span className="label" style={{ marginTop: "1.2rem", fontSize: "1.2rem" }}>
-                    {label}
-                </span>
-            )}
+            {hasLabel && <span className={classes.label}>{label}</span>}
         </Backdrop>
     );
 };

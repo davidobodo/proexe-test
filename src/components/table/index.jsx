@@ -35,6 +35,19 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
         setPage(0);
     };
 
+    const paginatedData = () => {
+        const pageData = data
+            .slice()
+            .sort(getComparator(order, orderBy))
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
+        //In case there is no longer data on the page user is currently viewing, automatically go to previous page
+        if (pageData.length === 0 && page !== 0) {
+            setPage((prevState) => prevState - 1);
+        }
+        return pageData;
+    };
+
     return (
         <Box className={classes.tableContainer}>
             <TableContainer>
@@ -42,54 +55,50 @@ export const CustomTable = ({ data, onDeleteUser, onEditUser }) => {
                     <TableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
                     <TableBody>
                         {data.length > 0 ? (
-                            data
-                                .slice()
-                                .sort(getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    const { id, name, username, email, address } = row;
+                            paginatedData().map((row, index) => {
+                                const { id, name, username, email, address } = row;
 
-                                    const labelId = `enhanced-table-checkbox-${index}`;
-                                    return (
-                                        <TableRow tabIndex={-1} key={id}>
-                                            <TableCell component="th" id={labelId} scope="row">
-                                                {id}
-                                            </TableCell>
-                                            <TableCell>{name}</TableCell>
-                                            <TableCell>{username}</TableCell>
-                                            <TableCell>{email}</TableCell>
-                                            <TableCell>{address.city}</TableCell>
-                                            <TableCell>
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={() => onEditUser(row)}
-                                                    sx={{
-                                                        backgroundColor: (theme) => theme.palette.yellow,
-                                                        "&.MuiButtonBase-root:hover": {
-                                                            bgcolor: (theme) => theme.palette.yellow
-                                                        }
-                                                    }}
-                                                >
-                                                    Edit
-                                                </Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={() => onDeleteUser(id)}
-                                                    sx={{
-                                                        backgroundColor: (theme) => theme.palette.error.main,
-                                                        "&.MuiButtonBase-root:hover": {
-                                                            bgcolor: (theme) => theme.palette.error.main
-                                                        }
-                                                    }}
-                                                >
-                                                    Delete
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    );
-                                })
+                                const labelId = `enhanced-table-checkbox-${index}`;
+                                return (
+                                    <TableRow tabIndex={-1} key={id}>
+                                        <TableCell component="th" id={labelId} scope="row">
+                                            {id}
+                                        </TableCell>
+                                        <TableCell>{name}</TableCell>
+                                        <TableCell className={classes.username}>{username}</TableCell>
+                                        <TableCell className={classes.email}>{email}</TableCell>
+                                        <TableCell>{address.city}</TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                onClick={() => onEditUser(row)}
+                                                sx={{
+                                                    backgroundColor: (theme) => theme.palette.yellow,
+                                                    "&.MuiButtonBase-root:hover": {
+                                                        bgcolor: (theme) => theme.palette.yellow
+                                                    }
+                                                }}
+                                            >
+                                                Edit
+                                            </Button>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                onClick={() => onDeleteUser(id)}
+                                                sx={{
+                                                    backgroundColor: (theme) => theme.palette.error.main,
+                                                    "&.MuiButtonBase-root:hover": {
+                                                        bgcolor: (theme) => theme.palette.error.main
+                                                    }
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })
                         ) : (
                             <TableRow>
                                 <TableCell colSpan="7" className={classes.emptyTableCell}>

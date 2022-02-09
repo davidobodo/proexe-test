@@ -7,6 +7,12 @@ export const useStyles = makeStyles((theme) => {
             borderRadius: theme.shape.borderRadius10,
             overflow: "hidden"
         },
+        username: {
+            textTransform: "lowercase"
+        },
+        email: {
+            textTransform: "lowercase"
+        },
         emptyTableCell: {
             textAlign: "center !important"
         }

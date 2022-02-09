@@ -62,14 +62,14 @@ export const theme = createTheme({
         MuiTableCell: {
             styleOverrides: {
                 root: {
-                    fontSize: "1.4rem"
+                    fontSize: "1.6rem"
                 }
             }
         },
         MuiButton: {
             styleOverrides: {
                 root: {
-                    fontSize: "1.2rem",
+                    fontSize: "1.4rem",
                     textTransform: "capitalize",
                     cursor: "pointer",
 

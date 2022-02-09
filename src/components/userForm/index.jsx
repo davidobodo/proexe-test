@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -40,18 +40,16 @@ export const UserForm = ({ sentUserData }) => {
     });
 
     const { name, email } = inputFields;
-    const FORM_FIELDS = [
+    const FORM_FIELDS = useRef([
         {
             id: "name",
-            label: "Name",
-            value: name
+            label: "Name"
         },
         {
             id: "email",
-            label: "Email",
-            value: email
+            label: "Email"
         }
-    ];
+    ]).current;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -145,8 +143,8 @@ export const UserForm = ({ sentUserData }) => {
          */
         const data = {
             name,
-            email,
-            username: name.toLowerCase().trim(),
+            email: email.toLowerCase(),
+            username: name.toLowerCase().replace(/\s+/, ""),
             address: {
                 street: "Kulas Light",
                 suite: "Apt. 556",
@@ -207,7 +205,7 @@ export const UserForm = ({ sentUserData }) => {
         <form noValidate onSubmit={handleSubmit}>
             <div className={classes.formBody}>
                 {FORM_FIELDS.map((field) => {
-                    const { id, label, value } = field;
+                    const { id, label } = field;
                     return (
                         <div key={id} className={classes.formField}>
                             <label htmlFor={id}>{label}</label>
@@ -216,7 +214,7 @@ export const UserForm = ({ sentUserData }) => {
                                 name={id}
                                 placeholder={label}
                                 ariaLabel={label}
-                                value={value}
+                                value={inputFields[id]}
                                 onChange={handleChange}
                                 hasError={inputFieldsError[id]}
                                 errorMessage={inputFieldsErrorMessage[id]}

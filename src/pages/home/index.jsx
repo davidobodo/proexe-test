@@ -20,7 +20,7 @@ const HomePage = ({ history }) => {
 
     const onEditUser = (userData) => {
         history.push({
-            pathname: "/form",
+            pathname: "/edit",
             state: userData
         });
     };
@@ -42,7 +42,7 @@ const HomePage = ({ history }) => {
     };
 
     const onAddNewUser = () => {
-        history.push("/form");
+        history.push("/edit");
     };
 
     if (isLoadingUsers) {

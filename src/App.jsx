@@ -15,11 +15,11 @@ const Root = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAllUsers());
-    }, []);
+    }, [dispatch]);
 
     return (
         <Fragment>
-            <Route exact component={FormPage} path="/form" />
+            <Route exact component={FormPage} path="/edit" />
             <Route exact component={HomePage} path="/" />
         </Fragment>
     );
